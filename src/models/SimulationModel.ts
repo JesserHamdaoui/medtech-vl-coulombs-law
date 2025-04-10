@@ -1,4 +1,8 @@
-import { SimulationProps, Ke } from "../constants/simulationConstants";
+import {
+  SimulationProps,
+  SettingsProps,
+  Ke,
+} from "../constants/simulationConstants";
 import { ChargeModel } from "./ChargeModel";
 
 export class SimulationModel {
@@ -40,7 +44,13 @@ export class SimulationModel {
   }
 
   public updateDistance(newDistance: number): void {
-    this._distance = newDistance;
+    if (newDistance < SettingsProps.DISTANCE_MIN) {
+      newDistance = SettingsProps.DISTANCE_MIN;
+    } else if (newDistance > SettingsProps.DISTANCE_MAX) {
+      newDistance = SettingsProps.DISTANCE_MAX;
+    } else {
+      this._distance = newDistance;
+    }
     const forces = this.calculateForces();
     this._chargeModelA.exercisedForce = forces[0];
     this._chargeModelB.exercisedForce = forces[1];

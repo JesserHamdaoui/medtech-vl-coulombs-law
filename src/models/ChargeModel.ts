@@ -1,5 +1,4 @@
-import { List } from "postcss/lib/list";
-import { ChargeProps } from "../constants/simulationConstants";
+import { ChargeProps, SettingsProps } from "../constants/simulationConstants";
 
 export class ChargeModel {
   private readonly _id: string;
@@ -30,7 +29,8 @@ export class ChargeModel {
   }
 
   private getColorByCharge = (charge: number): number[] => {
-    const colorIntensity = (Math.abs(charge) * 255) / 10;
+    const colorIntensity =
+      (Math.abs(charge) * 255) / (SettingsProps.CHARGE_RANGE / 2);
     if (charge > 0) {
       return [colorIntensity, 0, 0]; // Red for positive charge
     } else {
@@ -47,7 +47,13 @@ export class ChargeModel {
   }
 
   public set charge(value: number) {
-    this._charge = value;
+    if (value < SettingsProps.CHARGE_MIN) {
+      value = SettingsProps.CHARGE_MIN;
+    } else if (value > SettingsProps.CHARGE_MAX) {
+      value = SettingsProps.CHARGE_MAX;
+    } else {
+      this._charge = value;
+    }
     this._color = this.getColorByCharge(value);
   }
 
