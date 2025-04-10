@@ -3,28 +3,28 @@ import { ChargeProps } from "../constants/simulationConstants";
 
 export class ChargeModel {
   private readonly _id: string;
-  private readonly name: string;
+  private readonly _name: string;
 
-  private readonly charge: number;
-  private readonly color: number[];
+  private _charge: number;
+  private _color: number[];
 
-  private readonly exercisedForce: number = 0;
+  private _exercisedForce: number = 0;
 
-  private readonly position: { x: number; y: number };
-  private readonly radius: number;
+  private _position: { x: number; y: number };
+  private readonly _radius: number;
 
-  private readonly isDragging: boolean;
-  private readonly isSelected: boolean;
+  private _isDragging: boolean;
+  private _isSelected: boolean;
 
   constructor(id: string, charge: number, position: { x: number; y: number }) {
     this._id = id;
-    this.name = "q" + id;
-    this.charge = charge;
-    this.color = this.getColorByCharge(charge);
-    this.position = position;
-    this.radius = ChargeProps.RADIUS;
-    this.isDragging = false;
-    this.isSelected = false;
+    this._name = "q" + id;
+    this._charge = charge;
+    this._color = this.getColorByCharge(charge);
+    this._position = position;
+    this._radius = ChargeProps.RADIUS;
+    this._isDragging = false;
+    this._isSelected = false;
   }
 
   private getColorByCharge = (charge: number): number[] => {
@@ -35,4 +35,57 @@ export class ChargeModel {
       return [0, 0, colorIntensity]; // Blue for negative charge
     }
   };
+
+  public get name(): string {
+    return this._name;
+  }
+
+  public get charge(): number {
+    return this._charge;
+  }
+
+  public set charge(value: number) {
+    this._charge = value;
+    this._color = this.getColorByCharge(value);
+  }
+
+  public get color(): number[] {
+    return this._color;
+  }
+
+  public get position(): { x: number; y: number } {
+    return this._position;
+  }
+
+  public set position(value: { x: number; y: number }) {
+    this._position = value;
+  }
+
+  public get radius(): number {
+    return this._radius;
+  }
+
+  public set ExercisedForce(value: number) {
+    this._exercisedForce = value;
+  }
+
+  public get ExercisedForce() {
+    return this._exercisedForce;
+  }
+
+  public get isDragging(): boolean {
+    return this._isDragging;
+  }
+
+  public set Dragging(value: boolean) {
+    this._isDragging = value;
+  }
+
+  public get isSelected(): boolean {
+    return this._isSelected;
+  }
+
+  public set Selected(value: boolean) {
+    this._isSelected = value;
+  }
 }
