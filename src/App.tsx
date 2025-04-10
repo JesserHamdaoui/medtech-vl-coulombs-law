@@ -1,5 +1,11 @@
+import Simulation from "./components/Simulation";
+
 function App() {
-  return <></>;
+  return (
+    <>
+      <Simulation />
+    </>
+  );
 }
 
 export default App;

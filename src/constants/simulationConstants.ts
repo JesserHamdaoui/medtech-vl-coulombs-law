@@ -3,7 +3,7 @@ export const ChargeProps = {
 };
 
 export const SimulationProps = {
-  SIMULATION_WIDTH: 800,
+  SIMULATION_WIDTH: 1200,
   SIMULATION_HEIGHT: 600,
   DISTANCE: 200,
   INITIAL_CHARGE_A: 10,
