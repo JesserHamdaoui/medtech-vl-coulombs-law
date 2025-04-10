@@ -10,21 +10,23 @@ export class ChargeModel {
 
   private _exercisedForce: number = 0;
 
+  private _initialPosition: { x: number; y: number };
   private _position: { x: number; y: number };
   private readonly _radius: number;
 
-  private _isDragging: boolean;
-  private _isSelected: boolean;
-
-  constructor(id: string, charge: number, position: { x: number; y: number }) {
+  constructor(
+    id: string,
+    charge: number,
+    exercisedForce: number,
+    position: { x: number; y: number }
+  ) {
     this._id = id;
-    this._name = "q" + id;
+    this._name = "q" + this._id;
     this._charge = charge;
+    this._exercisedForce = exercisedForce;
     this._color = this.getColorByCharge(charge);
-    this._position = position;
+    this._position = this._initialPosition = position;
     this._radius = ChargeProps.RADIUS;
-    this._isDragging = false;
-    this._isSelected = false;
   }
 
   private getColorByCharge = (charge: number): number[] => {
@@ -53,6 +55,10 @@ export class ChargeModel {
     return this._color;
   }
 
+  public get initialPosition(): { x: number; y: number } {
+    return this._initialPosition;
+  }
+
   public get position(): { x: number; y: number } {
     return this._position;
   }
@@ -65,27 +71,11 @@ export class ChargeModel {
     return this._radius;
   }
 
-  public set ExercisedForce(value: number) {
+  public set exercisedForce(value: number) {
     this._exercisedForce = value;
   }
 
-  public get ExercisedForce() {
+  public get exercisedForce() {
     return this._exercisedForce;
-  }
-
-  public get isDragging(): boolean {
-    return this._isDragging;
-  }
-
-  public set Dragging(value: boolean) {
-    this._isDragging = value;
-  }
-
-  public get isSelected(): boolean {
-    return this._isSelected;
-  }
-
-  public set Selected(value: boolean) {
-    this._isSelected = value;
   }
 }
