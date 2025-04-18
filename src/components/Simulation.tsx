@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { SimulationModel } from "../models/SimulationModel";
 import { SimulationProps } from "../constants/simulationConstants";
 import Sketch, { SketchProps } from "react-p5";
+import sketchCharge from "../sketches/sketchCharge";
 
 export default function Simulation() {
   const [simulation] = useState(new SimulationModel());
@@ -25,6 +26,9 @@ export default function Simulation() {
 
   const draw: SketchProps["draw"] = (pt) => {
     pt.background(0);
+
+    sketchCharge(pt, chargeA);
+    sketchCharge(pt, chargeB);
   };
 
   return (
