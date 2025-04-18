@@ -30,11 +30,11 @@ export class ChargeModel {
 
   private getColorByCharge = (charge: number): number[] => {
     const colorIntensity =
-      (Math.abs(charge) * 255) / (SettingsProps.CHARGE_RANGE / 2);
+      255 - (Math.abs(charge * 1e6) * 255) / (SettingsProps.CHARGE_RANGE / 2);
     if (charge > 0) {
-      return [colorIntensity, 0, 0]; // Red for positive charge
+      return [255, colorIntensity, colorIntensity]; // Lighter red for positive charge
     } else {
-      return [0, 0, colorIntensity]; // Blue for negative charge
+      return [colorIntensity, colorIntensity, 255]; // Lighter blue for negative charge
     }
   };
 

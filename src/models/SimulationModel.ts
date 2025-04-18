@@ -3,6 +3,7 @@ import {
   SettingsProps,
   Ke,
 } from "../constants/simulationConstants";
+import { convertMToPx } from "../utils/units";
 import { ChargeModel } from "./ChargeModel";
 
 export class SimulationModel {
@@ -16,32 +17,42 @@ export class SimulationModel {
     const chargeB = SimulationProps.INITIAL_CHARGE_B;
     const forces = this.calculateForcesWithCharges(chargeA, chargeB);
     this._chargeModelA = new ChargeModel("1", chargeA, forces[0], {
-      x: SimulationProps.SIMULATION_WIDTH / 2 - this._distance / 2,
+      x:
+        SimulationProps.SIMULATION_WIDTH / 2 - convertMToPx(this._distance) / 2,
       y: SimulationProps.SIMULATION_HEIGHT / 2,
     });
     this._chargeModelB = new ChargeModel("2", chargeB, forces[1], {
-      x: SimulationProps.SIMULATION_WIDTH / 2 + this._distance / 2,
+      x:
+        SimulationProps.SIMULATION_WIDTH / 2 + convertMToPx(this._distance) / 2,
       y: SimulationProps.SIMULATION_HEIGHT / 2,
     });
-  }
-
-  public calculateForces(): number[] {
-    const chargeA = this._chargeModelA.charge;
-    const chargeB = this._chargeModelB.charge;
-    const distance = this._distance;
-    const force = (Ke * chargeA * chargeB) / (distance * distance);
-    const direction = chargeA * chargeB > 0 ? -1 : 1; // Same sign -> repulsion, different sign -> attraction
-    return [force * direction, -force * direction];
   }
 
   public calculateForcesWithCharges(
     chargeA: number,
     chargeB: number
-  ): number[] {
-    const distance = this._distance;
-    const force = (Ke * chargeA * chargeB) / (distance * distance);
-    const direction = chargeA * chargeB > 0 ? -1 : 1; // Same sign -> repulsion, different sign -> attraction
-    return [force * direction, -force * direction];
+  ): [number, number] {
+    const qA = chargeA;
+    const qB = chargeB;
+    const r = this._distance;
+
+    // Always positive magnitude
+    const magnitude = (Ke * Math.abs(qA * qB)) / (r * r);
+
+    // repulsive if same sign, attractive if opposite
+    const sign = qA * qB > 0 ? 1 : -1;
+
+    // force on A due to B, and equal/opposite on B
+    const forceOnA = magnitude * sign;
+    const forceOnB = -forceOnA;
+
+    return [forceOnB, forceOnA];
+  }
+
+  public calculateForces(): [number, number] {
+    const chargeA = this._chargeModelA.charge;
+    const chargeB = this._chargeModelB.charge;
+    return this.calculateForcesWithCharges(chargeA, chargeB);
   }
 
   public updateDistance(newDistance: number): void {
