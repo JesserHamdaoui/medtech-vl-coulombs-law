@@ -1,10 +1,13 @@
-import Simulation from "./components/Simulation";
+import SimulationContainer from "./components/SimulationContainer";
+import FullscreenProvider from "./hooks/FullscreenContext";
 
 function App() {
   return (
-    <>
-      <Simulation />
-    </>
+    <div className="flex justify-center items-center h-screen">
+      <FullscreenProvider>
+        <SimulationContainer />
+      </FullscreenProvider>
+    </div>
   );
 }
 
