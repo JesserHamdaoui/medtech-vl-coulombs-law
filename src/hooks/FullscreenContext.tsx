@@ -81,8 +81,11 @@ export const FullscreenProvider = ({ children }: FullscreenProviderProps) => {
   const handleFullscreenChange = () => {
     const newIsFullscreen = Boolean(
       document.fullscreenElement ||
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (document as any).webkitFullscreenElement ||
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (document as any).mozFullScreenElement ||
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (document as any).msFullscreenElement
     );
     setIsFullscreen(newIsFullscreen);
