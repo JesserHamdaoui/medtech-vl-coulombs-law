@@ -9,10 +9,11 @@ import Button from "./ui/Button";
 import { useFullscreen } from "../hooks/FullscreenContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCompress, faExpand } from "@fortawesome/free-solid-svg-icons";
+import P5 from "p5";
 
 export default function Simulation() {
   const { isFullscreen, toggleFullscreen } = useFullscreen();
-  const p5Instance = useRef<any>(null);
+  const p5Instance = useRef<P5 | null>(null);
 
   const [simulation] = useState(() => new SimulationModel());
   const [chargeA] = useState(simulation.chargeModelA);
@@ -27,7 +28,7 @@ export default function Simulation() {
       : SimulationProps.SIMULATION_HEIGHT,
   });
 
-  const setup: SketchProps["setup"] = (pt, canvasParentRef) => {
+  const setup: SketchProps["setup"] = (pt: P5, canvasParentRef) => {
     const { width, height } = getCanvasSize();
     pt.createCanvas(width, height).parent(canvasParentRef);
     pt.background(0);
@@ -35,7 +36,7 @@ export default function Simulation() {
     p5Instance.current = pt;
   };
 
-  const draw: SketchProps["draw"] = (pt) => {
+  const draw: SketchProps["draw"] = (pt: P5) => {
     pt.background(0);
     sketchCharge(pt, chargeA, isFullscreen);
     sketchCharge(pt, chargeB, isFullscreen);
