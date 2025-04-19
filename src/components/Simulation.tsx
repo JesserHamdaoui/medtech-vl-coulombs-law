@@ -3,13 +3,14 @@ import { SimulationModel } from "../models/SimulationModel";
 import { SimulationProps } from "../constants/simulationConstants";
 import Sketch, { SketchProps } from "react-p5";
 import sketchCharge from "../sketches/sketchCharge";
+import ChargeCards from "./ChargeCards";
 
 export default function Simulation() {
   const [simulation] = useState(new SimulationModel());
 
-  const [chargeA, setChargeA] = useState(simulation.chargeModelA);
+  const [chargeA] = useState(simulation.chargeModelA);
 
-  const [chargeB, setChargeB] = useState(simulation.chargeModelB);
+  const [chargeB] = useState(simulation.chargeModelB);
 
   const [distance, setDistance] = useState(simulation.distance);
 
@@ -32,8 +33,9 @@ export default function Simulation() {
   };
 
   return (
-    <div>
+    <div className="relative">
       <Sketch setup={setup} draw={draw} ref={p5Instance} />
+      <ChargeCards simulation={simulation} />
     </div>
   );
 }

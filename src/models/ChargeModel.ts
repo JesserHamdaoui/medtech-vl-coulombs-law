@@ -30,7 +30,9 @@ export class ChargeModel {
 
   private getColorByCharge = (charge: number): number[] => {
     const colorIntensity =
-      255 - (Math.abs(charge * 1e6) * 255) / (SettingsProps.CHARGE_RANGE / 2);
+      255 -
+      (Math.abs(charge * 1e6) * 255) /
+        ((SettingsProps.CHARGE_MAX * 1e6 - SettingsProps.CHARGE_MIN * 1e6) / 2);
     if (charge > 0) {
       return [255, colorIntensity, colorIntensity]; // Lighter red for positive charge
     } else {
@@ -67,6 +69,14 @@ export class ChargeModel {
 
   public get position(): { x: number; y: number } {
     return this._position;
+  }
+
+  public set xPosition(value: number) {
+    this._position.x = value;
+  }
+
+  public set yPosition(value: number) {
+    this._position.y = value;
   }
 
   public set position(value: { x: number; y: number }) {

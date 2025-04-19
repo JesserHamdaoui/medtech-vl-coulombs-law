@@ -19,12 +19,12 @@ export class SimulationModel {
     this._chargeModelA = new ChargeModel("1", chargeA, forces[0], {
       x:
         SimulationProps.SIMULATION_WIDTH / 2 - convertMToPx(this._distance) / 2,
-      y: SimulationProps.SIMULATION_HEIGHT / 2,
+      y: SimulationProps.Y_REFERENCE,
     });
     this._chargeModelB = new ChargeModel("2", chargeB, forces[1], {
       x:
         SimulationProps.SIMULATION_WIDTH / 2 + convertMToPx(this._distance) / 2,
-      y: SimulationProps.SIMULATION_HEIGHT / 2,
+      y: SimulationProps.Y_REFERENCE,
     });
   }
 
@@ -63,6 +63,13 @@ export class SimulationModel {
     } else {
       this._distance = newDistance;
     }
+
+    this._chargeModelA.xPosition =
+      SimulationProps.SIMULATION_WIDTH / 2 - convertMToPx(this._distance) / 2;
+
+    this._chargeModelB.xPosition =
+      SimulationProps.SIMULATION_WIDTH / 2 + convertMToPx(this._distance) / 2;
+
     const forces = this.calculateForces();
     this._chargeModelA.exercisedForce = forces[0];
     this._chargeModelB.exercisedForce = forces[1];
