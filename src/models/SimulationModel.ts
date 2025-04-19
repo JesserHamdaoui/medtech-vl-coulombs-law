@@ -89,6 +89,24 @@ export class SimulationModel {
     this._chargeModelB.exercisedForce = forces[1];
   }
 
+  public updatePositions(width: number, height: number): void {
+    if (width == 1200) {
+      this._chargeModelA.xPosition =
+        width / 2 - convertMToPx(this._distance) / 2;
+      this._chargeModelA.yPosition = SimulationProps.Y_REFERENCE;
+      this._chargeModelB.xPosition =
+        width / 2 + convertMToPx(this._distance) / 2;
+      this._chargeModelB.yPosition = SimulationProps.Y_REFERENCE;
+    } else {
+      this._chargeModelA.xPosition =
+        width / 2 - convertMToPx(this._distance) / 2;
+      this._chargeModelA.yPosition = (height - 300) / 2;
+      this._chargeModelB.xPosition =
+        width / 2 + convertMToPx(this._distance) / 2;
+      this._chargeModelB.yPosition = (height - 300) / 2;
+    }
+  }
+
   public get distance(): number {
     return this._distance;
   }

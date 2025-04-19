@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import logo from "../assets/medtech-logo.png";
-// import { useFullscreen } from "../hooks/FullscreenContext";
+import { useFullscreen } from "../hooks/FullscreenContext";
 
 const IntroAnimation = () => {
   const [fadeIn, setFadeIn] = useState(false);
@@ -9,8 +9,7 @@ const IntroAnimation = () => {
   const [hideOverlay, setHideOverlay] = useState(false);
   const [initialAnimationDone, setInitialAnimationDone] = useState(false);
 
-  // const { isFullscreen } = useFullscreen();
-  const isFullscreen = false; // Placeholder for fullscreen state
+  const { isFullscreen } = useFullscreen();
 
   useEffect(() => {
     const fadeTimer = setTimeout(() => setFadeIn(true), 500);
@@ -49,7 +48,7 @@ const IntroAnimation = () => {
           ${
             moved
               ? isFullscreen
-                ? "top-[30px] left-[calc(100%-200px)]"
+                ? "top-[30px] left-[calc(100%-230px)]"
                 : "top-[15px] left-[1000px]"
               : "top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
           }
@@ -62,7 +61,7 @@ const IntroAnimation = () => {
       >
         <h1
           className={`
-            text-[#2596be]
+            text-[#2596be] text-nowrap
             ${fadeIn ? "opacity-100" : "opacity-0"}
             ${
               moved
