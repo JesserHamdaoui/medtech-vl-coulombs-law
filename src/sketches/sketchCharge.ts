@@ -39,6 +39,22 @@ export default function sketchCharge(
   );
   p5.drawingContext.setLineDash([]); // Reset dash
 
+  // write the forec magnitude
+  p5.fill(255);
+  p5.stroke(0);
+  p5.textFont("Monospace");
+  p5.textSize(12);
+  if (forceVector > 0) {
+    p5.textAlign(p5.LEFT, p5.BOTTOM);
+  } else {
+    p5.textAlign(p5.RIGHT, p5.BOTTOM);
+  }
+  p5.text(
+    `Force: ${Math.abs(forceVector).toFixed(2)} N`,
+    charge.position.x + (forceVector > 0 ? 10 : -10),
+    charge.position.y + yOffset - 10
+  );
+
   // Calculate total arrow length: base length plus forceVector (preserving direction)
   const totalArrowLength =
     (forceVector >= 0 ? 1 : -1) * (baseArrowLength + Math.abs(forceVector));
