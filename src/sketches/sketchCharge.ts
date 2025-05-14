@@ -30,6 +30,7 @@ export default function sketchCharge(
   );
   p5.drawingContext.setLineDash([]); // Reset dash
 
+  // Draw the charge circle
   p5.fill(charge.color);
   p5.noStroke();
   p5.ellipse(charge.position.x, charge.position.y, radius, radius);

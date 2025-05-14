@@ -10,6 +10,7 @@ import { useFullscreen } from "../hooks/FullscreenContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCompress, faExpand } from "@fortawesome/free-solid-svg-icons";
 import P5 from "p5";
+import sketchRuler from "../sketches/sketchRuler";
 
 export default function Simulation() {
   const { isFullscreen, toggleFullscreen } = useFullscreen();
@@ -38,6 +39,7 @@ export default function Simulation() {
 
   const draw: SketchProps["draw"] = (pt: P5) => {
     pt.background(0);
+    sketchRuler(pt, isFullscreen);
     sketchCharge(pt, chargeA, isFullscreen);
     sketchCharge(pt, chargeB, isFullscreen);
   };
