@@ -9,19 +9,10 @@ export default function sketchCharge(
 ) {
   const radius = isFullscreen ? charge.radius * 1.3 : charge.radius; // Adjust radius for fullscreen
 
-  p5.fill(charge.color);
-  p5.noStroke();
-  p5.ellipse(charge.position.x, charge.position.y, radius, radius);
-
-  const forceVector = charge.exercisedForce;
-  const arrowSize = 10;
-
-  p5.push();
-
   // Draw dashed line from center of circle to tail of arrow
   p5.strokeWeight(3);
   p5.stroke(255, 150); // White with some opacity
-  p5.drawingContext.setLineDash([8, 8]);
+  p5.drawingContext.setLineDash([6, 6]);
   const yOffset =
     charge.name === "q1"
       ? isFullscreen
@@ -33,15 +24,32 @@ export default function sketchCharge(
   const baseArrowLength = arrowLength; // Base length of the arrow
   p5.line(
     charge.position.x,
-    charge.position.y,
+    charge.position.y + (charge.name === "q1" ? radius / 2 : -radius / 2),
     charge.position.x,
     charge.position.y + yOffset
   );
   p5.drawingContext.setLineDash([]); // Reset dash
 
+  p5.fill(charge.color);
+  p5.noStroke();
+  p5.ellipse(charge.position.x, charge.position.y, radius, radius);
+
+  // Write the charge name
+  p5.fill(0);
+  p5.noStroke();
+  p5.textAlign(p5.CENTER, p5.CENTER);
+  p5.textFont("Monospace");
+  p5.textSize(32);
+  p5.text(charge.name.toUpperCase(), charge.position.x, charge.position.y);
+
+  const forceVector = charge.exercisedForce;
+  const arrowSize = 10;
+
+  p5.push();
+
   // write the forec magnitude
   p5.fill(255);
-  p5.stroke(0);
+  p5.noStroke();
   p5.textFont("Monospace");
   p5.textSize(12);
   if (forceVector > 0) {
