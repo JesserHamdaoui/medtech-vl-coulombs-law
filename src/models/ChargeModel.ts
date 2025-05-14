@@ -23,27 +23,21 @@ export class ChargeModel {
     this._name = "q" + this._id;
     this._charge = charge;
     this._exercisedForce = exercisedForce;
-    this._color = this.getColorByCharge(charge);
+    // this._color = this.getColorByCharge(charge);
+    this._color = id === "1" ? [255, 0, 0] : [0, 0, 255]; // Red for q1, Blue for q2
     this._position = this._initialPosition = position;
     this._radius = ChargeProps.RADIUS;
   }
 
   private getColorByCharge = (charge: number): number[] => {
-    // const colorIntensity =
-    //   255 -
-    //   (Math.abs(charge * 1e6) * 255) /
-    //     ((SettingsProps.CHARGE_MAX * 1e6 - SettingsProps.CHARGE_MIN * 1e6) / 2);
-    // if (charge > 0) {
-    //   return [255, colorIntensity, colorIntensity]; // Lighter red for positive charge
-    // } else {
-    //   return [colorIntensity, colorIntensity, 255]; // Lighter blue for negative charge
-    // }
+    const colorIntensity =
+      255 -
+      (Math.abs(charge * 1e6) * 255) /
+        ((SettingsProps.CHARGE_MAX * 1e6 - SettingsProps.CHARGE_MIN * 1e6) / 2);
     if (charge > 0) {
-      return [255, 0, 0]; // Red for positive charge
-    } else if (charge < 0) {
-      return [0, 0, 255]; // Blue for negative charge
+      return [255, colorIntensity, colorIntensity]; // Lighter red for positive charge
     } else {
-      return [255, 255, 255]; // White for neutral charge
+      return [colorIntensity, colorIntensity, 255]; // Lighter blue for negative charge
     }
   };
 
@@ -63,7 +57,7 @@ export class ChargeModel {
     } else {
       this._charge = value;
     }
-    this._color = this.getColorByCharge(value);
+    // this._color = this.getColorByCharge(value);
   }
 
   public get color(): number[] {
