@@ -59,7 +59,9 @@ export default function sketchCharge(
     p5.textAlign(p5.RIGHT, p5.BOTTOM);
   }
   p5.text(
-    `Force: ${Math.abs(forceVector).toFixed(2)} N`,
+    charge.name == "q1"
+      ? `F2/1: ${Math.abs(forceVector).toFixed(2)} N`
+      : `F1/2: ${Math.abs(forceVector).toFixed(2)} N`,
     charge.position.x + (forceVector > 0 ? 10 : -10),
     charge.position.y + yOffset - 10
   );

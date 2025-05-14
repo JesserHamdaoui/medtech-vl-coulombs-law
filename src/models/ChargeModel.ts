@@ -29,14 +29,21 @@ export class ChargeModel {
   }
 
   private getColorByCharge = (charge: number): number[] => {
-    const colorIntensity =
-      255 -
-      (Math.abs(charge * 1e6) * 255) /
-        ((SettingsProps.CHARGE_MAX * 1e6 - SettingsProps.CHARGE_MIN * 1e6) / 2);
+    // const colorIntensity =
+    //   255 -
+    //   (Math.abs(charge * 1e6) * 255) /
+    //     ((SettingsProps.CHARGE_MAX * 1e6 - SettingsProps.CHARGE_MIN * 1e6) / 2);
+    // if (charge > 0) {
+    //   return [255, colorIntensity, colorIntensity]; // Lighter red for positive charge
+    // } else {
+    //   return [colorIntensity, colorIntensity, 255]; // Lighter blue for negative charge
+    // }
     if (charge > 0) {
-      return [255, colorIntensity, colorIntensity]; // Lighter red for positive charge
+      return [255, 0, 0]; // Red for positive charge
+    } else if (charge < 0) {
+      return [0, 0, 255]; // Blue for negative charge
     } else {
-      return [colorIntensity, colorIntensity, 255]; // Lighter blue for negative charge
+      return [255, 255, 255]; // White for neutral charge
     }
   };
 
